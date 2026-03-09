@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Individual Assignment 2 – Kigali City Services Directory</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', serif;
+      font-size: 11.5pt;
+      line-height: 1.75;
+      color: #1a1a1a;
+      background: #fff;
+      padding: 0;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 72px;
+    }
+
+    /* ── Cover ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-bottom: 3px solid #1a3a5c;
+      page-break-after: always;
+    }
+
+    .cover .university {
+      font-size: 13pt;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #1a3a5c;
+      margin-bottom: 8px;
+    }
+
+    .cover .divider {
+      width: 60px;
+      height: 3px;
+      background: #c9a84c;
+      margin: 18px auto;
+      border-radius: 2px;
+    }
+
+    .cover .title {
+      font-size: 24pt;
+      font-weight: bold;
+      color: #1a3a5c;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .cover .subtitle {
+      font-size: 13pt;
+      color: #555;
+      margin-bottom: 40px;
+    }
+
+    .cover .meta-table {
+      border-collapse: collapse;
+      font-size: 11pt;
+      margin-top: 10px;
+    }
+
+    .cover .meta-table td {
+      padding: 5px 18px;
+      text-align: left;
+    }
+
+    .cover .meta-table td:first-child {
+      font-weight: bold;
+      color: #1a3a5c;
+      text-align: right;
+      border-right: 2px solid #c9a84c;
+    }
+
+    .cover .date {
+      margin-top: 60px;
+      font-size: 10.5pt;
+      color: #888;
+    }
+
+    /* ── TOC ── */
+    .toc {
+      page-break-after: always;
+    }
+
+    .toc h2 {
+      font-size: 16pt;
+      color: #1a3a5c;
+      border-bottom: 2px solid #c9a84c;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+    }
+
+    .toc-entry {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px dotted #ccc;
+      font-size: 11pt;
+    }
+
+    .toc-entry.sub {
+      padding-left: 20px;
+      color: #444;
+      font-size: 10.5pt;
+    }
+
+    /* ── Sections ── */
+    h1 {
+      font-size: 18pt;
+      color: #1a3a5c;
+      border-bottom: 2px solid #c9a84c;
+      padding-bottom: 8px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 13.5pt;
+      color: #1a3a5c;
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 11.5pt;
+      color: #333;
+      font-style: italic;
+      margin-top: 18px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 22px;
+      margin-bottom: 12px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    /* ── Error box ── */
+    .error-block {
+      background: #fff5f5;
+      border-left: 4px solid #c0392b;
+      border-radius: 4px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 10.5pt;
+    }
+
+    .error-block .err-title {
+      font-weight: bold;
+      color: #c0392b;
+      margin-bottom: 4px;
+      font-size: 11pt;
+    }
+
+    .error-block .err-msg {
+      font-family: 'Courier New', monospace;
+      background: #f9e8e8;
+      border-radius: 3px;
+      padding: 6px 10px;
+      margin: 6px 0;
+      font-size: 9.5pt;
+      color: #7b1a1a;
+      word-break: break-all;
+    }
+
+    .resolution {
+      background: #f0fff4;
+      border-left: 4px solid #27ae60;
+      border-radius: 4px;
+      padding: 14px 18px;
+      margin: 8px 0 20px;
+      font-size: 10.5pt;
+    }
+
+    .resolution .res-title {
+      font-weight: bold;
+      color: #1e8449;
+      margin-bottom: 4px;
+    }
+
+    /* ── Code ── */
+    pre {
+      background: #1e2d3d;
+      color: #e0e6f0;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-family: 'Courier New', monospace;
+      font-size: 9.5pt;
+      line-height: 1.6;
+      margin: 12px 0 18px;
+      overflow-x: auto;
+      page-break-inside: avoid;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 9.5pt;
+      color: #1a3a5c;
+    }
+
+    /* ── Schema table ── */
+    .schema-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 10.5pt;
+      page-break-inside: avoid;
+    }
+
+    .schema-table th {
+      background: #1a3a5c;
+      color: #fff;
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 10pt;
+    }
+
+    .schema-table td {
+      padding: 7px 12px;
+      border-bottom: 1px solid #dde3eb;
+      vertical-align: top;
+    }
+
+    .schema-table tr:nth-child(even) td {
+      background: #f5f8fc;
+    }
+
+    /* ── Info box ── */
+    .info-box {
+      background: #eef6ff;
+      border: 1px solid #aec9e8;
+      border-radius: 5px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: 10.5pt;
+    }
+
+    .info-box strong {
+      color: #1a3a5c;
+    }
+
+    /* ── Gold highlight ── */
+    .highlight {
+      background: #fffbea;
+      border-left: 4px solid #c9a84c;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin: 14px 0;
+      font-size: 10.5pt;
+    }
+
+    /* ── TOC section spacer ── */
+    .toc-section { margin-top: 8px; }
+
+    /* ── Error block body paragraph ── */
+    .err-body { margin-top: 8px; }
+
+    /* ── Monospace URL span ── */
+    .mono-url {
+      font-family: 'Courier New', monospace;
+      font-size: 11pt;
+    }
+
+    /* ── Page breaks ── */
+    .page-break { page-break-before: always; }
+
+    /* ── Print ── */
+    @page {
+      margin: 0;
+    }
+    @media print {
+      body { padding: 0; }
+      .page { padding: 48px 64px; }
+      .cover { page-break-after: always; min-height: 100vh; }
+      .toc { page-break-after: always; }
+      h1 { page-break-before: always; }
+      pre, .error-block, .resolution, .schema-table { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════ COVER -->
+<div class="page cover">
+  <div class="university">Mobile Application Development</div>
+  <div class="divider"></div>
+  <div class="title">Kigali City Services &amp; Places Directory</div>
+  <div class="subtitle">Individual Assignment 2 — Submission Document</div>
+
+  <table class="meta-table">
+    <tr><td>Student</td><td>Jongkuch Anyar</td></tr>
+    <tr><td>Email</td><td>j.anyar@alustudent.com</td></tr>
+    <tr><td>Course</td><td>Mobile Application Development</td></tr>
+    <tr><td>Assignment</td><td>Individual Assignment 2</td></tr>
+    <tr><td>Platform</td><td>Flutter (Android &amp; iOS)</td></tr>
+    <tr><td>Backend</td><td>Firebase Authentication &amp; Cloud Firestore</td></tr>
+    <tr><td>State Management</td><td>Provider</td></tr>
+    <tr><td>Submission Date</td><td>March 2026</td></tr>
+  </table>
+
+  <div class="date">Submitted in partial fulfillment of the course requirements</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ TOC -->
+<div class="page toc">
+  <h2>Table of Contents</h2>
+
+  <div class="toc-entry"><span>1. GitHub Repository &amp; Demo Video</span><span>3</span></div>
+  <div class="toc-entry sub"><span>1.1 GitHub Repository</span><span>3</span></div>
+  <div class="toc-entry sub"><span>1.2 Demo Video</span><span>4</span></div>
+
+  <div class="toc-entry toc-section"><span>2. Implementation Reflection</span><span>5</span></div>
+  <div class="toc-entry sub"><span>2.1 Firebase Authentication Integration</span><span>5</span></div>
+  <div class="toc-entry sub"><span>2.2 Cloud Firestore Integration</span><span>6</span></div>
+  <div class="toc-entry sub"><span>2.3 Google Maps Integration</span><span>7</span></div>
+  <div class="toc-entry sub"><span>2.4 State Management with Provider</span><span>8</span></div>
+
+  <div class="toc-entry toc-section"><span>3. Design Summary</span><span>9</span></div>
+  <div class="toc-entry sub"><span>3.1 Firestore Database Structure</span><span>9</span></div>
+  <div class="toc-entry sub"><span>3.2 Listing Data Model</span><span>10</span></div>
+  <div class="toc-entry sub"><span>3.3 State Management Architecture</span><span>11</span></div>
+  <div class="toc-entry sub"><span>3.4 Design Trade-offs &amp; Technical Challenges</span><span>12</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SECTION 1 -->
+<div class="page">
+  <h1>1. GitHub Repository &amp; Demo Video</h1>
+
+  <!-- 1.1 -->
+  <h2>1.1 GitHub Repository</h2>
+
+  <div class="info-box">
+    <strong>Repository URL:</strong><br/>
+    <span class="mono-url">
+      https://github.com/Jongkuch1/kigali_services_directory
+    </span>
+  </div>
+
+  <p>
+    The repository contains the complete Flutter project source code with Firebase
+    integration. Below is a summary of the repository structure and commit history
+    highlights.
+  </p>
+
+  <h3>Repository Structure</h3>
+
+  <pre>lib/
+├── main.dart                    # App entry point, Provider setup, root gate
+├── app_colors.dart              # Centralised design tokens (colours)
+├── firebase_options.dart        # Auto-generated by FlutterFire CLI
+│
+├── models/
+│   ├── listing_model.dart       # ListingModel with Firestore serialisation
+│   └── user_profile_model.dart  # UserProfileModel
+│
+├── services/
+│   ├── auth_service.dart        # Firebase Auth wrapper
+│   └── firestore_service.dart   # Firestore CRUD + stream methods
+│
+├── providers/
+│   ├── auth_provider.dart       # Auth state, email verification logic
+│   ├── listings_provider.dart   # Listings CRUD, search/filter state
+│   └── bookmarks_provider.dart  # Bookmarks state
+│
+├── screens/
+│   ├── auth_screen.dart         # Login / Sign Up UI
+│   ├── main_screen.dart         # BottomNavigationBar shell
+│   ├── directory_screen.dart    # Browse listings, search, category filter
+│   ├── my_listings_screen.dart  # User's own listings with Edit/Delete
+│   ├── map_view_screen.dart     # Google Map with all listing markers
+│   ├── settings_screen.dart     # User profile + notification toggle
+│   ├── detail_screen.dart       # Listing detail, embedded map, directions
+│   ├── add_edit_listing_screen.dart  # Create / Edit listing form
+│   ├── bookmarks_screen.dart    # Saved listings
+│   └── reviews_screen.dart      # Browse and write reviews
+│
+└── widgets/
+    ├── listing_card.dart        # Reusable listing card widget
+    ├── category_badge.dart      # Animated category filter chip
+    └── star_rating.dart         # Half-star capable rating display</pre>
+
+  <h3>Key Commit Milestones</h3>
+
+  <ol>
+    <li>Initial Flutter project setup and dependency configuration</li>
+    <li>Firebase project created; FlutterFire CLI configuration applied</li>
+    <li>Firebase Authentication implemented (sign-up, login, email verification)</li>
+    <li>User profile Firestore document creation on registration</li>
+    <li>Firestore service layer and ListingModel created</li>
+    <li>ListingsProvider with real-time stream subscriptions</li>
+    <li>Directory screen with category sections and search bar</li>
+    <li>Add/Edit listing form with full validation</li>
+    <li>My Listings screen with Edit/Delete and confirmation dialogs</li>
+    <li>Detail screen with embedded Google Map and Get Directions button</li>
+    <li>Map View screen with all-listings markers</li>
+    <li>Settings screen with profile display and notification toggles</li>
+    <li>Bookmarks and Reviews features</li>
+    <li>Bug fixes: email verification UX, star rating half-star support</li>
+  </ol>
+
+  <!-- 1.2 -->
+  <h2>1.2 Demo Video</h2>
+
+  <div class="info-box">
+    <strong>Demo Video URL:</strong><br/>
+    <span class="mono-url">
+      [INSERT YOUTUBE / GOOGLE DRIVE LINK HERE]
+    </span>
+  </div>
+
+  <p>
+    The demo video (approximately 9–10 minutes) walks through every required feature
+    of the application with the Firebase Console displayed concurrently to verify
+    backend updates in real time. The following features are demonstrated:
+  </p>
+
+  <ol>
+    <li><strong>User Authentication Flow</strong> — Sign-up, email verification enforcement, login, and logout using Firebase Authentication</li>
+    <li><strong>Creating a Listing</strong> — Filling in all required fields, selecting a location on the interactive Google Map picker, and saving to Firestore</li>
+    <li><strong>Editing a Listing</strong> — Updating fields and confirming the Firestore document changes in the Firebase Console</li>
+    <li><strong>Deleting a Listing</strong> — Confirming deletion in the app and verifying the document disappears from Firestore in real time</li>
+    <li><strong>Searching and Filtering</strong> — Using the search bar and category chips, demonstrating the in-provider filtering logic</li>
+    <li><strong>Listing Detail Page</strong> — Opening a listing to view all information including the embedded Google Map marker</li>
+    <li><strong>Map Navigation</strong> — Tapping the Navigate button to launch Google Maps with turn-by-turn directions to the listing's coordinates</li>
+    <li><strong>Implementation Code Walk-through</strong> — Showing key implementation files (<code>firestore_service.dart</code>, <code>listings_provider.dart</code>, <code>auth_provider.dart</code>) during the explanation of each feature</li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SECTION 2 -->
+<div class="page page-break">
+  <h1>2. Implementation Reflection</h1>
+
+  <p>
+    This section documents the key integration challenges encountered while building
+    the Kigali City Services &amp; Places Directory application with Firebase Authentication,
+    Cloud Firestore, and the Google Maps Flutter SDK. For each challenge, the specific
+    error encountered is described along with the steps taken to resolve it.
+  </p>
+
+  <!-- 2.1 -->
+  <h2>2.1 Firebase Authentication Integration</h2>
+
+  <p>
+    Integrating Firebase Authentication was the first step in the project. The initial
+    setup required configuring the Firebase project through the FlutterFire CLI and
+    enabling Email/Password authentication in the Firebase Console.
+  </p>
+
+  <h3>Error 1 — Missing <code>google-services.json</code> / Firebase Not Initialized</h3>
+
+  <div class="error-block">
+    <div class="err-title">Runtime Error on App Launch</div>
+    <div class="err-msg">[core/no-app] No Firebase App '[DEFAULT]' has been created - call Firebase.initializeApp()</div>
+    <p class="err-body">
+      The app crashed immediately on launch before any UI was rendered. This occurred
+      because <code>Firebase.initializeApp()</code> had not been called before
+      <code>runApp()</code>, and the platform-specific configuration files
+      (<code>google-services.json</code> for Android, <code>GoogleService-Info.plist</code>
+      for iOS) were missing from the project.
+    </p>
+  </div>
+
+  <div class="resolution">
+    <div class="res-title">Resolution</div>
+    <p>
+      The FlutterFire CLI was used to automatically generate the configuration files
+      and the <code>firebase_options.dart</code> file:
+    </p>
+    <pre>dart pub global activate flutterfire_cli
+flutterfire configure</pre>
+    <p>
+      <code>main()</code> was updated to call <code>Firebase.initializeApp()</code>
+      with <code>WidgetsFlutterBinding.ensureInitialized()</code> before <code>runApp()</code>.
+      A try-catch wrapper was added so that if Firebase fails to initialize (e.g., during
+      development without credentials), a helpful setup screen is shown instead of crashing.
+    </p>
+  </div>
+
+  <h3>Error 2 — Email Verification Not Enforced After Sign-In</h3>
+
+  <div class="error-block">
+    <div class="err-title">Logic Bug — Unverified Users Accessing the App</div>
+    <div class="err-msg">Users who had not verified their email address were being routed directly to the main directory screen after sign-in.</div>
+    <p class="err-body">
+      The initial implementation used only <code>authStateChanges()</code> to determine
+      if a user was authenticated. Since Firebase considers a user "signed in" regardless
+      of email verification status, unverified users passed the auth gate.
+    </p>
+  </div>
+
+  <div class="resolution">
+    <div class="res-title">Resolution</div>
+    <p>
+      The <code>isAuthenticated</code> getter in <code>AuthProvider</code> was updated
+      to require both an authenticated status <em>and</em> a verified email:
+    </p>
+    <pre>bool get isAuthenticated =>
+    _status == AuthStatus.authenticated &&
+    (_firebaseUser?.emailVerified ?? false);</pre>
+    <p>
+      Inside <code>_onAuthStateChanged</code>, <code>user.reload()</code> is called
+      before reading <code>emailVerified</code> to ensure the local Firebase SDK
+      reflects the latest server-side state. An <code>emailNotVerified</code> flag
+      drives a banner in the auth screen that offers both "Resend email" and
+      "I've verified ✓" actions, the latter calling <code>checkEmailVerified()</code>
+      to reload and redirect without requiring the user to log out and back in.
+    </p>
+  </div>
+
+  <!-- 2.2 -->
+  <h2>2.2 Cloud Firestore Integration</h2>
+
+  <h3>Error 3 — Firestore Permission Denied on Read/Write</h3>
+
+  <div class="error-block">
+    <div class="err-title">FirebaseException: permission-denied</div>
+    <div class="err-msg">[cloud_firestore/permission-denied] The caller does not have permission to execute the specified operation.</div>
+    <p class="err-body">
+      All Firestore reads and writes failed immediately after the database was created.
+      The default security rules created by Firebase were set to deny all access after
+      the initial 30-day test window rule was not updated for production use.
+    </p>
+  </div>
+
+  <div class="resolution">
+    <div class="res-title">Resolution</div>
+    <p>
+      Firestore security rules were updated to allow authenticated users to read all
+      listings, while restricting writes to the document owner:
+    </p>
+    <pre>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users can read/write their own profile
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // All authenticated users can read listings
+    // Only the creator can update or delete their own listing
+    match /listings/{listingId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null
+        && request.auth.uid == resource.data.createdBy;
+    }
+  }
+}</pre>
+  </div>
+
+  <h3>Error 4 — Real-Time Updates Not Rebuilding the UI</h3>
+
+  <div class="error-block">
+    <div class="err-title">Logic Bug — Listings added in Firestore not appearing in the app</div>
+    <div class="err-msg">After adding a new listing via the form, the Directory screen did not update until the app was restarted.</div>
+    <p class="err-body">
+      The initial implementation used a <code>Future</code>-based one-time fetch
+      (<code>get()</code>) rather than a real-time stream (<code>snapshots()</code>).
+      Changes in Firestore were not pushed to the app automatically.
+    </p>
+  </div>
+
+  <div class="resolution">
+    <div class="res-title">Resolution</div>
+    <p>
+      <code>FirestoreService</code> was refactored to expose Dart <code>Stream</code>s
+      using Firestore's <code>.snapshots()</code> listener. <code>ListingsProvider</code>
+      subscribes to these streams via <code>StreamSubscription</code> and calls
+      <code>notifyListeners()</code> on each emission, automatically rebuilding any
+      <code>Consumer&lt;ListingsProvider&gt;</code> widgets in the tree:
+    </p>
+    <pre>Stream&lt;List&lt;ListingModel&gt;&gt; get listingsStream {
+  return _db
+      .collection('listings')
+      .orderBy('timestamp', descending: true)
+      .snapshots()
+      .map((snapshot) => snapshot.docs
+          .map((doc) => ListingModel.fromFirestore(doc))
+          .toList());
+}</pre>
+  </div>
+
+  <!-- 2.3 -->
+  <h2>2.3 Google Maps Integration</h2>
+
+  <h3>Error 5 — Blank/Grey Map on Android (Missing API Key)</h3>
+
+  <div class="error-block">
+    <div class="err-title">Google Maps renders as a grey blank tile</div>
+    <div class="err-msg">W/GoogleMapActivity: Failed to load map. Error contacting Google servers. This is probably an authentication issue (but could be due to network errors).</div>
+    <p class="err-body">
+      The <code>GoogleMap</code> widget rendered as a solid grey tile on the Android
+      emulator. No markers or map tiles were displayed. The logcat showed an
+      authentication failure when contacting the Maps tile servers.
+    </p>
+  </div>
+
+  <div class="resolution">
+    <div class="res-title">Resolution</div>
+    <p>
+      A Google Maps API key was generated in Google Cloud Console with the
+      <strong>Maps SDK for Android</strong> and <strong>Maps SDK for iOS</strong>
+      APIs enabled. The key was added to <code>AndroidManifest.xml</code>:
+    </p>
+    <pre>&lt;meta-data
+    android:name="com.google.android.geo.API_KEY"
+    android:value="YOUR_API_KEY"/&gt;</pre>
+    <p>
+      For iOS, <code>GMSServices.provideAPIKey("YOUR_API_KEY")</code> was added to
+      <code>AppDelegate.swift</code> before <code>super.application(...)</code>.
+    </p>
+  </div>
+
+  <!-- 2.4 -->
+  <h2>2.4 State Management with Provider</h2>
+
+  <p>
+    Early in development, Firestore queries were placed directly inside widget
+    <code>build()</code> methods using <code>FutureBuilder</code>. This led to
+    re-fetching data on every rebuild and made it impossible to share state across
+    screens (e.g., the Directory and Map View showing different data).
+  </p>
+
+  <p>
+    The architecture was refactored to the three-layer pattern described in the
+    Design Summary: every Firestore interaction goes through a <code>Service</code>
+    class, is managed by a <code>Provider</code>, and is consumed by widgets via
+    <code>Consumer&lt;T&gt;</code> or <code>context.watch&lt;T&gt;()</code>. This
+    single change made all four main screens react instantly to the same underlying
+    data stream.
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ SECTION 3 -->
+<div class="page page-break">
+  <h1>3. Design Summary Document</h1>
+
+  <!-- 3.1 -->
+  <h2>3.1 Firestore Database Structure</h2>
+
+  <p>
+    The application uses two top-level Firestore collections: <code>users</code>
+    and <code>listings</code>. A third subcollection <code>reviews</code> is nested
+    under each listing document.
+  </p>
+
+  <div class="highlight">
+    <strong>Collections:</strong> <code>users</code> · <code>listings</code> · <code>listings/{id}/reviews</code>
+  </div>
+
+  <h3>Collection: <code>users</code></h3>
+  <p>
+    Each document is keyed by the Firebase Authentication UID and is created
+    automatically when a user registers. This links every listing to its creator
+    via the shared UID.
+  </p>
+
+  <table class="schema-table">
+    <thead>
+      <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>uid</code></td><td>String</td><td>Firebase Auth UID (same as document ID)</td></tr>
+      <tr><td><code>name</code></td><td>String</td><td>User's display name entered at registration</td></tr>
+      <tr><td><code>email</code></td><td>String</td><td>Email address used for authentication</td></tr>
+      <tr><td><code>createdAt</code></td><td>Timestamp</td><td>Account creation timestamp</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Collection: <code>listings</code></h3>
+  <p>
+    Documents are auto-ID'd by Firestore. The <code>createdBy</code> field stores
+    the UID of the authenticated user who created the listing, enabling user-scoped
+    queries and Firestore security rule enforcement.
+  </p>
+
+  <table class="schema-table">
+    <thead>
+      <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>name</code></td><td>String</td><td>Place or service name</td></tr>
+      <tr><td><code>category</code></td><td>String</td><td>One of: Cafés, Hospitals, Police, Libraries, Parks, Restaurants, Tourist</td></tr>
+      <tr><td><code>address</code></td><td>String</td><td>Physical street address in Kigali</td></tr>
+      <tr><td><code>contact</code></td><td>String</td><td>Phone number or contact info</td></tr>
+      <tr><td><code>description</code></td><td>String</td><td>Free-text description of the place or service</td></tr>
+      <tr><td><code>lat</code></td><td>Number</td><td>Geographic latitude (decimal degrees)</td></tr>
+      <tr><td><code>lng</code></td><td>Number</td><td>Geographic longitude (decimal degrees)</td></tr>
+      <tr><td><code>rating</code></td><td>Number</td><td>Rating from 0.0 to 5.0</td></tr>
+      <tr><td><code>createdBy</code></td><td>String</td><td>UID of the authenticated user who created the listing</td></tr>
+      <tr><td><code>timestamp</code></td><td>Timestamp</td><td>Creation date/time; used for ordering</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Subcollection: <code>listings/{listingId}/reviews</code></h3>
+
+  <table class="schema-table">
+    <thead>
+      <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>author</code></td><td>String</td><td>Display name of the reviewer</td></tr>
+      <tr><td><code>text</code></td><td>String</td><td>Review body text</td></tr>
+      <tr><td><code>timestamp</code></td><td>Timestamp</td><td>Time the review was posted</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 3.2 -->
+  <h2>3.2 Listing Data Model</h2>
+
+  <p>
+    The <code>ListingModel</code> class in <code>lib/models/listing_model.dart</code>
+    is the single source of truth for listing data throughout the application. It
+    implements two serialisation methods to convert cleanly between Dart objects
+    and Firestore documents:
+  </p>
+
+  <pre>class ListingModel {
+  final String? id;
+  final String name;
+  final String category;
+  final String address;
+  final String contact;
+  final String description;
+  final double lat;
+  final double lng;
+  final double rating;
+  final String createdBy;
+  final DateTime timestamp;
+  final List&lt;ReviewModel&gt; reviews;
+
+  // Deserialise from Firestore DocumentSnapshot
+  factory ListingModel.fromFirestore(DocumentSnapshot doc) { ... }
+
+  // Serialise to Firestore Map
+  Map&lt;String, dynamic&gt; toFirestore() { ... }
+}</pre>
+
+  <p>
+    The <code>id</code> field is nullable because it is assigned by Firestore on
+    creation and not known until the document is saved. The <code>reviews</code>
+    list is fetched as part of the listing stream by querying the
+    <code>reviews</code> subcollection in <code>FirestoreService</code>.
+  </p>
+
+  <!-- 3.3 -->
+  <h2>3.3 State Management Architecture</h2>
+
+  <p>
+    The application uses the <strong>Provider</strong> package for state management,
+    organised in a strict three-layer architecture:
+  </p>
+
+  <div class="info-box">
+    <strong>Data Flow:</strong><br/>
+    Firestore / Firebase Auth &nbsp;→&nbsp;
+    <strong>Service Layer</strong> &nbsp;→&nbsp;
+    <strong>Provider Layer</strong> &nbsp;→&nbsp;
+    <strong>UI Layer</strong>
+  </div>
+
+  <h3>Service Layer</h3>
+  <p>
+    <code>AuthService</code> and <code>FirestoreService</code> are plain Dart classes
+    with no dependency on Flutter or Provider. They contain all Firebase API calls.
+    This makes the business logic independently testable and keeps Firebase imports
+    out of the UI files.
+  </p>
+
+  <h3>Provider Layer</h3>
+  <p>
+    Three <code>ChangeNotifier</code> providers manage application state:
+  </p>
+  <ul>
+    <li>
+      <strong>AuthProvider</strong> — listens to the Firebase auth state stream,
+      enforces email verification, manages loading/error states for sign-in/sign-up,
+      and exposes the current <code>UserProfileModel</code>.
+    </li>
+    <li>
+      <strong>ListingsProvider</strong> — holds two <code>StreamSubscription</code>s
+      (all listings and the authenticated user's own listings), exposes computed
+      <code>filteredListings</code> for search and category filtering, and wraps
+      CRUD operations in try/catch with error state exposure.
+    </li>
+    <li>
+      <strong>BookmarksProvider</strong> — manages the user's bookmarked listing IDs
+      via a Firestore subcollection with real-time sync.
+    </li>
+  </ul>
+
+  <h3>UI Layer</h3>
+  <p>
+    Screens and widgets read state exclusively through <code>Consumer&lt;T&gt;</code>
+    or <code>context.watch&lt;T&gt;()</code>. Write operations (CRUD, sign-in) are
+    dispatched via <code>context.read&lt;T&gt;()</code> to avoid unnecessary rebuilds.
+    No screen file imports <code>firebase_core</code>, <code>firebase_auth</code>,
+    or <code>cloud_firestore</code> directly.
+  </p>
+
+  <pre>// Example: Directory screen reads filtered listings reactively
+Consumer&lt;ListingsProvider&gt;(
+  builder: (context, provider, _) {
+    final listings = provider.filteredListings;
+    // UI rebuilds automatically when Firestore data changes
+    return ListView.builder( ... );
+  },
+)</pre>
+
+  <!-- 3.4 -->
+  <h2>3.4 Design Trade-offs &amp; Technical Challenges</h2>
+
+  <h3>Trade-off 1 — Manual Coordinate Entry vs. Geocoding</h3>
+  <p>
+    The listing creation form requires latitude and longitude to be entered manually
+    as decimal numbers. Integrating the Google Places Autocomplete API or a geocoding
+    service would have provided a better user experience (type an address and get
+    coordinates automatically). This was intentionally deferred because it requires
+    an additional billed API (Places API) beyond the basic Maps SDK, and the manual
+    approach is sufficient for demonstrating the core map integration requirement.
+  </p>
+
+  <h3>Trade-off 2 — Notification Simulation vs. Push Notifications</h3>
+  <p>
+    The Settings screen includes a Location-Based Notifications toggle that is
+    persisted using <code>SharedPreferences</code>. Full push notification delivery
+    would require Firebase Cloud Messaging (FCM) and a Cloud Functions backend to
+    trigger location-based alerts. Given that the assignment explicitly permits a
+    local simulation, <code>SharedPreferences</code> stores the user preference
+    and the toggle state is reflected immediately in the UI without a backend.
+  </p>
+
+  <h3>Trade-off 3 — IndexedStack vs. Navigator for Bottom Navigation</h3>
+  <p>
+    The four main screens are wrapped in an <code>IndexedStack</code> rather than
+    being pushed onto the Navigator stack. This means all four screens are
+    instantiated when the app launches and remain alive throughout the session.
+    The advantage is instant tab switching with no rebuild cost; the disadvantage
+    is slightly higher memory usage. For this application's scale, the user
+    experience benefit outweighs the memory cost. The Firestore stream subscriptions
+    are started once in <code>MainScreen.initState()</code> and cancelled in
+    <code>dispose()</code>, avoiding duplicate listeners.
+  </p>
+
+  <h3>Trade-off 4 — Flat Collection vs. Sub-collections for Listings</h3>
+  <p>
+    All listings are stored in a single flat <code>listings</code> collection rather
+    than nested under each user. This makes it straightforward to query the full
+    shared directory (all listings, ordered by timestamp) and separately query by
+    <code>createdBy == uid</code> for "My Listings". If the collection were nested
+    under <code>users/{uid}/listings</code>, a global directory query across all
+    users would require Firestore Collection Group queries, which add complexity.
+    The flat design is simpler and maps cleanly to the assignment requirements.
+  </p>
+
+</div>
+
+</body>
+</html>
