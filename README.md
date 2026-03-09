@@ -1,8 +1,10 @@
 # Kigali City Services & Places Directory
 
-A Flutter mobile application that helps Kigali residents locate and navigate to essential public services and leisure destinations — including hospitals, police stations, libraries, restaurants, cafés, parks, and tourist attractions.
+**Demo Video:** [https://youtu.be/tjGtENr2wfg](https://youtu.be/tjGtENr2wfg)
 
-Built with **Firebase Authentication**, **Cloud Firestore**, and **Google Maps Flutter**, using the **Provider** pattern for state management and a strict service-layer architecture.
+A Flutter app for finding and navigating to public services and places around Kigali — hospitals, police stations, libraries, restaurants, cafés, parks, and tourist attractions.
+
+Built with **Firebase Authentication**, **Cloud Firestore**, and **Google Maps Flutter**. Uses the **Provider** pattern for state management with a clean service-layer separation.
 
 ---
 
@@ -82,7 +84,7 @@ Stored under `users/{uid}/bookmarks/{listingId}` as a Firestore subcollection fo
 
 ## State Management — Provider Pattern
 
-All Firestore and Firebase Auth interactions are strictly isolated from the UI through a three-layer architecture:
+Firestore and Firebase Auth calls are kept out of the UI through a three-layer structure:
 
 ```text
 Firebase / Firestore  →  Service Layer  →  Provider Layer  →  UI Layer
@@ -90,7 +92,7 @@ Firebase / Firestore  →  Service Layer  →  Provider Layer  →  UI Layer
 
 ### Service Layer
 
-`AuthService` and `FirestoreService` are plain Dart classes containing all Firebase API calls. No Flutter or Provider dependencies — independently testable.
+`AuthService` and `FirestoreService` are plain Dart classes with all the Firebase calls. No Flutter or Provider imports — independently testable.
 
 ### Provider Layer
 
@@ -102,7 +104,7 @@ Firebase / Firestore  →  Service Layer  →  Provider Layer  →  UI Layer
 
 ### UI Layer
 
-Screens consume state via `Consumer<T>` or `context.watch<T>()` only. Write operations use `context.read<T>()`. **No screen file imports `firebase_auth`, `firebase_core`, or `cloud_firestore` directly.**
+Screens read state via `Consumer<T>` or `context.watch<T>()` and write via `context.read<T>()`. **No screen imports `firebase_auth`, `firebase_core`, or `cloud_firestore` directly.**
 
 ---
 
@@ -286,7 +288,7 @@ flutter run
 
 ### Real-time Listings
 
-`FirestoreService` exposes Dart `Stream`s using Firestore's `.snapshots()`. `ListingsProvider` holds two `StreamSubscription`s — one for all listings, one for the authenticated user's listings — and calls `notifyListeners()` on each emission. Every `Consumer<ListingsProvider>` in the widget tree rebuilds automatically.
+`FirestoreService` uses `.snapshots()` for live `Stream`s. `ListingsProvider` holds two `StreamSubscription`s — one for all listings, one scoped to the signed-in user — and calls `notifyListeners()` on each update. Every `Consumer<ListingsProvider>` rebuilds automatically.
 
 ### Search & Filtering
 

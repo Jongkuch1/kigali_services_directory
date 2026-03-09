@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kigali Services Directory — User Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      line-height: 1.7;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      background: linear-gradient(135deg, #0f3460 0%, #16213e 60%, #1a1a2e 100%);
+      color: #fff;
+      padding: 80px 60px 70px;
+      page-break-after: always;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,188,212,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(76,175,80,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .cover-badge {
+      display: inline-block;
+      background: rgba(0,188,212,0.2);
+      border: 1px solid rgba(0,188,212,0.5);
+      color: #00bcd4;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 28px;
+      width: fit-content;
+    }
+    .cover h1 {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .cover h1 span { color: #00bcd4; }
+    .cover-subtitle {
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.78);
+      max-width: 560px;
+      margin-bottom: 56px;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-stats {
+      display: flex;
+      gap: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .stat { text-align: left; }
+    .stat-num { font-size: 36px; font-weight: 800; color: #00bcd4; }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,0.6); font-weight: 400; margin-top: 2px; }
+    .cover-footer {
+      position: absolute;
+      bottom: 36px; left: 60px; right: 60px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      z-index: 1;
+    }
+
+    /* ── BODY PAGES ── */
+    .page {
+      padding: 64px 64px 56px;
+      page-break-after: always;
+    }
+    .page:last-of-type { page-break-after: auto; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #00838f;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 30px;
+      font-weight: 800;
+      color: #0f3460;
+      margin-bottom: 18px;
+      line-height: 1.2;
+    }
+    .intro-text {
+      font-size: 16px;
+      color: #444;
+      max-width: 640px;
+      margin-bottom: 48px;
+    }
+
+    /* ── OVERVIEW CARDS ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .card {
+      background: #f7faff;
+      border: 1px solid #e0eaf7;
+      border-radius: 14px;
+      padding: 24px 22px;
+    }
+    .card-icon {
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+    .card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f3460;
+      margin-bottom: 6px;
+    }
+    .card p {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* ── CATEGORY GRID ── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+    .cat-pill {
+      background: #fff;
+      border: 2px solid #e0eaf7;
+      border-radius: 50px;
+      padding: 14px 18px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0f3460;
+    }
+    .cat-pill .cat-icon { font-size: 22px; display: block; margin-bottom: 6px; }
+
+    /* ── SCREENSHOT SECTION ── */
+    .screenshot-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 36px;
+      align-items: flex-start;
+    }
+    .screenshot-col { flex: 1; }
+    .screenshot-col img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid #e0eaf7;
+      box-shadow: 0 4px 24px rgba(15,52,96,0.10);
+    }
+    .screenshot-col .caption {
+      font-size: 12px;
+      color: #999;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .screenshot-col .desc {
+      font-size: 13.5px;
+      color: #555;
+      margin-top: 12px;
+      line-height: 1.65;
+    }
+
+    /* ── HOW TO USE ── */
+    .steps { list-style: none; margin-bottom: 48px; }
+    .steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 20px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .steps li:last-child { border-bottom: none; }
+    .step-num {
+      min-width: 38px; height: 38px;
+      background: #0f3460;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-body h4 { font-size: 15px; font-weight: 700; color: #0f3460; margin-bottom: 4px; }
+    .step-body p { font-size: 13.5px; color: #666; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight {
+      background: linear-gradient(135deg, #e0f7fa, #e8f5e9);
+      border-left: 5px solid #00838f;
+      border-radius: 12px;
+      padding: 22px 26px;
+      margin-bottom: 32px;
+    }
+    .highlight p { font-size: 14.5px; color: #2e4a3e; font-style: italic; }
+
+    /* ── FEATURE TABLE ── */
+    .feature-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; }
+    .feature-table th {
+      background: #0f3460;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-align: left;
+      padding: 12px 16px;
+    }
+    .feature-table th:first-child { border-radius: 8px 0 0 0; }
+    .feature-table th:last-child { border-radius: 0 8px 0 0; }
+    .feature-table td {
+      padding: 11px 16px;
+      font-size: 13.5px;
+      color: #444;
+      border-bottom: 1px solid #f0f3f7;
+    }
+    .feature-table tr:hover td { background: #f7faff; }
+    .badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── ABOUT / FOOTER ── */
+    .about-box {
+      background: #0f3460;
+      color: #fff;
+      border-radius: 18px;
+      padding: 40px 44px;
+      margin-top: 12px;
+    }
+    .about-box h3 { font-size: 22px; font-weight: 800; margin-bottom: 12px; color: #fff; }
+    .about-box p { font-size: 14px; color: rgba(255,255,255,0.75); margin-bottom: 8px; line-height: 1.7; }
+    .about-box .email { color: #00bcd4; font-weight: 600; }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .cover, .page { page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ───────────────── COVER ───────────────── -->
+<div class="cover">
+  <div class="cover-badge">Mobile App &mdash; User Guide</div>
+  <h1>Kigali City<br><span>Services Directory</span></h1>
+  <p class="cover-subtitle">
+    Your pocket guide to finding hospitals, restaurants, parks, police stations,
+    libraries, cafés, and tourist attractions anywhere in Kigali &mdash; with live maps
+    and turn-by-turn directions.
+  </p>
+  <div class="cover-stats">
+    <div class="stat">
+      <div class="stat-num">7</div>
+      <div class="stat-label">Service Categories</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Main Screens</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Free to Use</div>
+    </div>
+  </div>
+  <div class="cover-footer">
+    <span>Kigali Services Directory</span>
+    <span>By Jongkuch Anyar &mdash; Mobile Application Development</span>
+  </div>
+</div>
+
+<!-- ───────────────── PAGE 1: WHAT IS IT ───────────────── -->
+<div class="page">
+  <div class="section-label">Overview</div>
+  <h2>What is Kigali Services Directory?</h2>
+  <p class="intro-text">
+    Kigali Services Directory is a free mobile app designed to make life in Kigali easier.
+    Whether you are a long-time resident or a visitor, the app puts every essential service
+    and popular destination on your phone — searchable, filterable, and always up to date.
+  </p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🔍</div>
+      <h3>Search Instantly</h3>
+      <p>Type any name or address and see matching places appear in real time as you type.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🗺️</div>
+      <h3>View on a Live Map</h3>
+      <p>Every listing is pinned on an interactive map so you can see exactly where things are relative to each other.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧭</div>
+      <h3>Get Directions</h3>
+      <p>One tap opens Google Maps or Apple Maps with step-by-step directions straight to your destination.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⭐</div>
+      <h3>Save Favourites</h3>
+      <p>Bookmark any place with a single tap so it is always a click away when you need it next.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">✏️</div>
+      <h3>Add Your Own Listings</h3>
+      <p>Know a great spot that is not listed yet? Add it yourself and share it with the community.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💬</div>
+      <h3>Read &amp; Write Reviews</h3>
+      <p>Share your experience or read what others say before visiting a place for the first time.</p>
+    </div>
+  </div>
+
+  <div class="section-label">Categories Covered</div>
+  <div class="cat-grid">
+    <div class="cat-pill"><span class="cat-icon">🏥</span>Hospitals</div>
+    <div class="cat-pill"><span class="cat-icon">👮</span>Police Stations</div>
+    <div class="cat-pill"><span class="cat-icon">📚</span>Libraries</div>
+    <div class="cat-pill"><span class="cat-icon">🍽️</span>Restaurants</div>
+    <div class="cat-pill"><span class="cat-icon">☕</span>Cafés</div>
+    <div class="cat-pill"><span class="cat-icon">🌳</span>Parks</div>
+    <div class="cat-pill"><span class="cat-icon">🏛️</span>Tourist Spots</div>
+    <div class="cat-pill"><span class="cat-icon">📋</span>All Categories</div>
+  </div>
+</div>
+
+<!-- ───────────────── PAGE 2: SCREENSHOTS ───────────────── -->
+<div class="page">
+  <div class="section-label">App Screens</div>
+  <h2>A Look Inside the App</h2>
+  <p class="intro-text">Here is what you will see when you open Kigali Services Directory on your phone.</p>
+
+  <div class="screenshot-row">
+    <div class="screenshot-col">
+      <img src="Login-and-sign-up-page.png" alt="Login screen" />
+      <div class="caption">Login &amp; Sign Up</div>
+      <p class="desc">
+        Create a free account with your email address. A quick verification step keeps
+        the community safe — once confirmed, you are in.
+      </p>
+    </div>
+    <div class="screenshot-col">
+      <img src="Directory-Page.png" alt="Directory screen" />
+      <div class="caption">Directory</div>
+      <p class="desc">
+        Browse all listings organised by category. Use the search bar at the top to
+        narrow down results instantly, or tap a category chip to filter by type.
+      </p>
+    </div>
+  </div>
+
+  <div class="screenshot-row">
+    <div class="screenshot-col">
+      <img src="Map-Page.png" alt="Map view screen" />
+      <div class="caption">Map View</div>
+      <p class="desc">
+        See every listing as a pin on an interactive city map. Tap any pin to see its
+        name, then tap again to open the full details page.
+      </p>
+    </div>
+    <div class="screenshot-col">
+      <img src="My-Listing-Page.png" alt="My Listings screen" />
+      <div class="caption">My Listings</div>
+      <p class="desc">
+        Manage the places you have added. Edit the details or remove a listing at any
+        time — your changes appear for everyone immediately.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────── PAGE 3: HOW TO USE ───────────────── -->
+<div class="page">
+  <div class="section-label">Getting Started</div>
+  <h2>How to Use the App</h2>
+  <p class="intro-text">
+    Kigali Services Directory is designed to be simple and fast. Follow these steps
+    to get the most out of it.
+  </p>
+
+  <ol class="steps">
+    <li>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h4>Create Your Account</h4>
+        <p>Open the app and tap <em>Sign Up</em>. Enter your name, email address, and a
+        password. Check your inbox for a verification email and tap the link inside — this
+        only takes a moment and keeps your account secure.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h4>Browse the Directory</h4>
+        <p>The <em>Directory</em> tab opens automatically after you sign in. Scroll through
+        all available services and places, or tap one of the coloured category chips at the
+        top to show only hospitals, cafés, parks, and so on.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h4>Search for a Place</h4>
+        <p>Tap the search bar and start typing a name or address. Results update as
+        you type — no need to press a search button. You can combine search and category
+        filter at the same time.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h4>Open a Listing for Full Details</h4>
+        <p>Tap any card in the directory to see the full details: address, contact number,
+        description, star rating, a mini map showing the exact location, and all reviews
+        left by other users.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h4>Get Directions</h4>
+        <p>Inside a listing's detail page, tap the <em>Get Directions</em> button. The
+        app will open Google Maps (or Apple Maps on iPhone) with a route already planned
+        from your current location.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h4>Bookmark Your Favourites</h4>
+        <p>See the bookmark icon on any listing card or detail page? Tap it to save the
+        place. Find all your saved spots in the <em>Bookmarks</em> section — they sync
+        across your devices automatically.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <h4>Add a New Listing</h4>
+        <p>Go to <em>My Listings</em> and tap the <em>+</em> button. Fill in the place
+        name, category, address, and a short description. Once saved, it appears in the
+        directory for all users straight away.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <h4>Leave a Review</h4>
+        <p>Visited a place listed in the app? Open its detail page, scroll to <em>Reviews</em>,
+        and share your experience in a few words. Your review helps others in the Kigali
+        community make better choices.</p>
+      </div>
+    </li>
+  </ol>
+
+  <div class="highlight">
+    <p>"All changes you make — new listings, bookmarks, and reviews — are saved to the cloud
+    and update for every other user instantly. There is no need to refresh the app."</p>
+  </div>
+</div>
+
+<!-- ───────────────── PAGE 4: FEATURES + ABOUT ───────────────── -->
+<div class="page">
+  <div class="section-label">Features at a Glance</div>
+  <h2>Everything the App Can Do</h2>
+  <p class="intro-text" style="margin-bottom: 28px;">
+    A quick reference to every feature available in Kigali Services Directory.
+  </p>
+
+  <table class="feature-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>What it does for you</th>
+        <th>Where to find it</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Search</strong></td>
+        <td>Find any place by name or address as you type</td>
+        <td><span class="badge">Directory tab</span></td>
+      </tr>
+      <tr>
+        <td><strong>Category Filter</strong></td>
+        <td>Show only hospitals, cafés, parks, etc.</td>
+        <td><span class="badge">Directory tab</span></td>
+      </tr>
+      <tr>
+        <td><strong>Map View</strong></td>
+        <td>See all places plotted on an interactive city map</td>
+        <td><span class="badge">Map tab</span></td>
+      </tr>
+      <tr>
+        <td><strong>Get Directions</strong></td>
+        <td>Opens navigation app with route to the selected place</td>
+        <td><span class="badge">Detail page</span></td>
+      </tr>
+      <tr>
+        <td><strong>Bookmarks</strong></td>
+        <td>Save and revisit your favourite places anytime</td>
+        <td><span class="badge">Bookmark icon</span></td>
+      </tr>
+      <tr>
+        <td><strong>Reviews</strong></td>
+        <td>Read others' experiences or share your own</td>
+        <td><span class="badge">Detail page</span></td>
+      </tr>
+      <tr>
+        <td><strong>Add a Listing</strong></td>
+        <td>Contribute a new place to the community directory</td>
+        <td><span class="badge">My Listings tab</span></td>
+      </tr>
+      <tr>
+        <td><strong>Edit / Delete</strong></td>
+        <td>Update or remove listings you have added</td>
+        <td><span class="badge">My Listings tab</span></td>
+      </tr>
+      <tr>
+        <td><strong>User Profile</strong></td>
+        <td>See your account information at a glance</td>
+        <td><span class="badge">Settings tab</span></td>
+      </tr>
+      <tr>
+        <td><strong>Notifications Toggle</strong></td>
+        <td>Choose whether to receive app notifications</td>
+        <td><span class="badge">Settings tab</span></td>
+      </tr>
+      <tr>
+        <td><strong>Secure Sign-In</strong></td>
+        <td>Email verification keeps your account protected</td>
+        <td><span class="badge">Login screen</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-label" style="margin-bottom: 16px;">About</div>
+  <div class="about-box">
+    <h3>About This App</h3>
+    <p>
+      Kigali Services Directory was built to make it easier for Kigali residents and
+      visitors to discover the essential services and interesting places that the city has
+      to offer. Whether you have just moved to Kigali or simply want to explore a new
+      neighbourhood, this app is your starting point.
+    </p>
+    <p style="margin-top: 12px;">
+      Developed by <strong>Jongkuch Anyar</strong> as part of the Mobile Application
+      Development course.<br>
+      <span class="email">j.anyar@alustudent.com</span>
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
