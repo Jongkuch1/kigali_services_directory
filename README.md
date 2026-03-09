@@ -28,17 +28,17 @@ Built with **Firebase Authentication**, **Cloud Firestore**, and **Google Maps F
 
 ## Screenshots
 
-| Login / Sign Up | Directory |
-|:-:|:-:|
-| ![Login/Sign Up](Login-Sign-Up%20Page.png) | ![Directory](Directory-Page.png) |
+| Login / Sign Up                            | Directory                         |
+| :----------------------------------------: | :-------------------------------: |
+| ![Login/Sign Up](Login-and-sign-up-page.png) | ![Directory](Directory-Page.png) |
 
-| My Listings | Map View |
-|:-:|:-:|
-| ![My Listings](My-Listing-Page.png) | ![Map View](Map-Page.png) |
+| My Listings                            | Map View                      |
+| :------------------------------------: | :---------------------------: |
+| ![My Listings](My-Listing-Page.png)   | ![Map View](Map-Page.png)    |
 
-| Settings |  |
-|:-:|:-:|
-| ![Settings](Setting-Page.png) | |
+| Settings                          |     |
+| :-------------------------------:  | :-: |
+| ![Settings](Setting-Page.png)     |     |
 
 ---
 
