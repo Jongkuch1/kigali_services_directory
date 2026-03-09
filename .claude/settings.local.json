@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter test test/widgets/ test/models/ test/providers/)",
+      "Bash(flutter pub get)",
+      "Bash(flutter analyze lib/)",
+      "Bash(python3 -c \"import fpdf2\")",
+      "Bash(python3 -c \"import reportlab\")",
+      "Bash(python3 -c \"import fpdf\")",
+      "Bash(pip3 install fpdf2)"
+    ]
+  }
+}
