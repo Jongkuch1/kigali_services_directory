@@ -151,7 +151,15 @@ class _AuthScreenState extends State<AuthScreen> {
           child: Column(
             children: [
               const SizedBox(height: 40),
-              const Text('🏙️', style: TextStyle(fontSize: 56)),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  'assets/image.png',
+                  height: 160,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
               const SizedBox(height: 12),
               const Text(
                 'Kigali City Services',
