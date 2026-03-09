@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "733169948632",
+    "project_id": "jongkuch-85af3",
+    "storage_bucket": "jongkuch-85af3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733169948632:android:b8f0f95a2c2b55e65844ad",
+        "android_client_info": {
+          "package_name": "com.example.kigali_services_directory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6IofWTS9A_LavuAttDZM7a-8K9BlRPnA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
